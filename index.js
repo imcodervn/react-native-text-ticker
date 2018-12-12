@@ -241,7 +241,7 @@ export default class TextMarquee extends PureComponent {
           display={animating ? 'flex' : 'none'}
           onContentSizeChange={() => this.calculateMetrics()}
         >
-          <Animated.Text
+          <Animated.View
             ref={c => (this.textRef = c)}
             numberOfLines={1}
             {... props}
