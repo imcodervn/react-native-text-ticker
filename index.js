@@ -25,10 +25,7 @@ export default class TextMarquee extends PureComponent {
     marqueeDelay:      PropTypes.number,
     useNativeDriver:   PropTypes.bool,
     onMarqueeComplete: PropTypes.func,
-    children:          PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.array
-    ]),
+    children:          PropTypes.node,
     repeatSpacer:    PropTypes.number,
     easing:          PropTypes.func
   }
@@ -92,7 +89,7 @@ export default class TextMarquee extends PureComponent {
     this.setTimeout(() => {
       Animated.timing(this.animatedValue, {
         toValue:         -this.textWidth - repeatSpacer,
-        duration:        duration || children.length * 150,
+        duration:        duration || 3000,
         easing:          easing,
         useNativeDriver: useNativeDriver
       }).start(({ finished }) => {
@@ -115,13 +112,13 @@ export default class TextMarquee extends PureComponent {
       Animated.sequence([
         Animated.timing(this.animatedValue, {
           toValue:         -this.distance - 10,
-          duration:        duration || children.length * 50,
+          duration:        duration || 1000,
           easing:          easing,
           useNativeDriver: useNativeDriver
         }),
         Animated.timing(this.animatedValue, {
           toValue:         10,
-          duration:        duration || children.length * 50,
+          duration:        duration || 1000,
           easing:          easing,
           useNativeDriver: useNativeDriver
         })
@@ -243,7 +240,6 @@ export default class TextMarquee extends PureComponent {
         >
           <Animated.View
             ref={c => (this.textRef = c)}
-            numberOfLines={1}
             {... props}
             style={[style, { transform: [{ translateX: this.animatedValue }], width: null }]}
           >
